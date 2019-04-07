@@ -69,8 +69,13 @@ import matplotlib.pyplot as plt
 plt.xlabel('Epoch Number')
 plt.ylabel('Loss Magnitude')
 plt.plot(m_train.history['loss'])
-plt.show()
+#plt.show()
 
+
+
+### Predict Values---------------------------------------------------------------
+
+print('Prediction: ', model.predict([100.00]))
 
 
 
