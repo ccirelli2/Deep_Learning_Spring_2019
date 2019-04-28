@@ -82,7 +82,7 @@ def CNN_model(x_train, y_train, x_test, y_test, input_dim, num_layers = 1,
 
     # Build Model
     if num_layers ==1:
-        model.add(layers.Dense(units = 9, input_dim = input_dim, activation = 'relu'))
+        model.add(layers.Dense(units = 1, input_dim = input_dim, activation = 'relu'))
 
     elif num_layers ==2:
         model.add(layers.Dense(units = 18, input_dim = input_dim, activation = 'relu'))
@@ -103,7 +103,7 @@ def CNN_model(x_train, y_train, x_test, y_test, input_dim, num_layers = 1,
         model.add(layers.Dense(units = 9, activation = 'softmax'))
         
     # Specify Optomizer
-    model.compile(loss='binary_crossentropy', 
+    model.compile(loss='sparse_categorical_crossentropy', 
                   optimizer='adam', 
                   metrics=['accuracy'])
     # Prints Summary of NN Structure
