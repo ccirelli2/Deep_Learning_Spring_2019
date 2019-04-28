@@ -121,7 +121,7 @@ def CNN_model(x_train, y_train, x_test, y_test, input_dim, num_layers = 1,
     loss, accuracy = model.evaluate(x_train, y_train, verbose=False)
     print('Training Accuracy: {}'.format(round(accuracy,4)))
     loss, accuracy = model.evaluate(x_test, y_test, verbose=False)
-    print('Test Accuracy: {}'.format(round(accuracy, 2)))
+    print('Test Accuracy: {}'.format(round(accuracy, 4)))
 
     if plot == True:
         plt.style.use('ggplot')
@@ -134,7 +134,8 @@ def CNN_model(x_train, y_train, x_test, y_test, input_dim, num_layers = 1,
 
 
 for i in range(1,5):
-    print('Training model on {} numbers of layers'.format(i))
+    print('---------------------------------------------------------------')
+    print('\nTraining model on {} layers'.format(i))
     CNN_model(x_train, y_train, x_test, y_test, num_layers = i, input_dim = input_dim, 
               loss='binary_crossentropy', num_epochs=25, n_batch_size = 500, 
               model_summary = False, plot = False)
