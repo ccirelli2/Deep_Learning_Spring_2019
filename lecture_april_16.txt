@@ -1,0 +1,24 @@
+# CLASS NOTES:   RECCURENT NEURAL NETWORKS___________________________________________
+
+
+
+Recurrent:  	Means repeat. Some things in a NN can be repeated. 
+Application: 	Sequence modeling. 
+		Can be applied to text, what word may come next in a sequency. 
+		Can handle variable length sequences. 
+		Track long term dependencies. 
+		Can maintain information about order. 
+		Share parameters across the sequence. 
+		Sentiment Analysis, Music Generation. 
+
+
+
+
+
+
+
+
+
+
+
+
