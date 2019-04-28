@@ -53,12 +53,14 @@ vectorizer.fit(sentences_train)
 x_train = vectorizer.transform(sentences_train).toarray()
 x_test  = vectorizer.transform(sentences_test).toarray()
 # Get Num of Features 
-input_dim = x_train.shape[1]
+num_features = 9080 
+
+
 
 
 # MODEL_____________________________________________________________________
 
-def CNN_model(x_train, y_train, x_test, y_test, input_dim, num_layers = 1, 
+def CNN_model(x_train, y_train, x_test, y_test, num_features, num_layers = 1, 
               loss='binary_crossentropy', optimizer ='adam', num_epochs=25, 
               n_batch_size = 500, model_summary = True, plot = True):
 
@@ -82,28 +84,28 @@ def CNN_model(x_train, y_train, x_test, y_test, input_dim, num_layers = 1,
 
     # Build Model
     if num_layers ==1:
-        model.add(layers.Dense(units = 1, input_dim = input_dim, activation = 'relu'))
+        model.add(layers.Dense(units = 9, input_shape = [num_features], activation = 'relu'))
 
     elif num_layers ==2:
-        model.add(layers.Dense(units = 18, input_dim = input_dim, activation = 'relu'))
+        model.add(layers.Dense(units = 18, input_shape = [num_features], activation = 'relu'))
         model.add(Dropout(0.25))
         model.add(layers.Dense(units = 9, activation = 'softmax'))
 
     elif num_layers == 3:
-        model.add(layers.Dense(units = 32, input_dim = input_dim, activation = 'relu'))
+        model.add(layers.Dense(units = 32, input_shape = [num_features], activation = 'relu'))
         model.add(Dropout(0.25))
         model.add(layers.Dense(units = 18))
         model.add(layers.Dense(units = 9, activation = 'softmax'))
 
     elif num_layers == 4:
-        model.add(layers.Dense(units = 64, input_dim = input_dim, activation = 'relu'))
+        model.add(layers.Dense(units = 64, input_shape = [num_features], activation = 'relu'))
         model.add(Dropout(0.25))
         model.add(layers.Dense(units = 32))
         model.add(layers.Dense(units = 18))
         model.add(layers.Dense(units = 9, activation = 'softmax'))
-        
+            
     # Specify Optomizer
-    model.compile(loss='sparse_categorical_crossentropy', 
+    model.compile(loss='binary_crossentropy', 
                   optimizer='adam', 
                   metrics=['accuracy'])
     # Prints Summary of NN Structure
@@ -132,23 +134,10 @@ def CNN_model(x_train, y_train, x_test, y_test, input_dim, num_layers = 1,
 
 
 
-
-for i in range(1,5):
-    print('---------------------------------------------------------------')
-    print('\nTraining model on {} layers'.format(i))
-    CNN_model(x_train, y_train, x_test, y_test, num_layers = i, input_dim = input_dim, 
-              loss='binary_crossentropy', num_epochs=25, n_batch_size = 500, 
-              model_summary = False, plot = False)
-    print('---------------------------------------------------------------')
-
-
-
-
-
-
-
-
-
+CNN_model(x_train, y_train, x_test, y_test, num_layers = 4, 
+          num_features = num_features, loss='binary_crossentropy', 
+          num_epochs = 15, n_batch_size = 500, 
+          model_summary = True, plot = True)
 
 
 
