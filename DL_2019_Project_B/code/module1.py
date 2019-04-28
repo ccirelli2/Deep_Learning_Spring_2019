@@ -8,7 +8,7 @@ from nltk.stem import *
 stemmer = PorterStemmer()
 from nltk import corpus
 import nltk
-
+import matplotlib.pyplot as plt
 
 
 # Functions
@@ -61,6 +61,38 @@ def clean_and_tokenize_text(Text_file):
     # Convert Back to String
     Text_str = ' '.join(Text_list)   
     return Text_str
+
+
+
+def clean_text(df):
+    df_new = pd.DataFrame({}, index = [1])
+    Count = 0
+    for row in df.itertuples():
+        df_new[Count] = m1.clean_and_tokenize_text(row[2])
+        Count +=1
+    df_t = df_new.transpose().reset_index()
+    return df_t
+
+
+
+def plot_history(history):
+    acc = history.history['acc']
+    val_acc = history.history['val_acc']
+    loss = history.history['loss']
+    val_loss = history.history['val_loss']
+    x = range(1, len(acc) + 1)
+
+    plt.figure(figsize=(12, 5))
+    plt.subplot(1, 2, 1)
+    plt.plot(x, acc, 'b', label='Training acc')
+    plt.plot(x, val_acc, 'r', label='Validation acc')
+    plt.title('Training and validation accuracy')
+    plt.legend()
+    plt.subplot(1, 2, 2)
+    plt.plot(x, loss, 'b', label='Training loss')
+    plt.plot(x, val_loss, 'r', label='Validation loss')
+    plt.title('Training and validation loss')
+    plt.legend()
 
 
 
