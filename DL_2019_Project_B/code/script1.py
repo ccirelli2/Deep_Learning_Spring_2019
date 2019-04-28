@@ -36,7 +36,6 @@ mydb = mysql.connector.connect(
         )
 # Load Data
 df = m1.get_labeled_data(mydb)
-print(df.columns)
 
 
 # DATA PREP____________________________________________________________
@@ -61,7 +60,7 @@ input_dim = x_train.shape[1]
 
 def CNN_model(x_train, y_train, x_test, y_test, input_dim, num_layers = 1, 
               loss='binary_crossentropy', optimizer ='adam', num_epochs=25, 
-              n_batch_size = 500, plot = True):
+              n_batch_size = 500, model_summary = True, plot = True):
 
     '''Inputs
     1. num_layers:      Choose number of layers to trian CNN
@@ -108,7 +107,8 @@ def CNN_model(x_train, y_train, x_test, y_test, input_dim, num_layers = 1,
                   optimizer='adam', 
                   metrics=['accuracy'])
     # Prints Summary of NN Structure
-    model.summary()
+    if model_summary == True:
+        model.summary()
 
     # Set Number of Epochs
     history = model.fit(x_train, y_train, 
@@ -133,10 +133,12 @@ def CNN_model(x_train, y_train, x_test, y_test, input_dim, num_layers = 1,
 
 
 
-
-CNN_model(x_train, y_train, x_test, y_test, num_layers = 1, input_dim = input_dim, 
-        loss='binary_crossentropy', num_epochs=25, n_batch_size = 500, plot = True)
-
+for i in range(1,5):
+    print('Training model on {} numbers of layers'.format(i))
+    CNN_model(x_train, y_train, x_test, y_test, num_layers = i, input_dim = input_dim, 
+              loss='binary_crossentropy', num_epochs=25, n_batch_size = 500, 
+              model_summary = False, plot = False)
+    print('---------------------------------------------------------------')
 
 
 
